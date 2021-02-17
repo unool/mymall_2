@@ -89,6 +89,23 @@ public class BoardServiceImpl implements BoardService {
         return boardDTO;
     }
 
+    @Override
+    public Long modify(BoardDTO boardDTO) {
+
+        List<Object[]> result = boardRepository.findBySeq(boardDTO.getSeq());
+
+        if(result.isEmpty())
+        {
+            //예외처리
+        }
+
+        Object[] objects = result.get(0);
+        Board board = (Board)objects[0];
+        board.setContent(boardDTO.getContent());
+
+        return boardDTO.getSeq();
+    }
+
     //    @Override
 //    public PageResultDTO<BoardDTO> getList(PageRequestDTO pageRequestDTO)
 //    {

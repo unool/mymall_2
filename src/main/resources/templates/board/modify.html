@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+
+    <th:block th:fragment="content">
+
+        <h1 class="mt-4"> Board Modify Page </h1>
+
+        <form th:action="@{/board/modify}" th:method="post">
+        <div class="form-group">
+            <label>Seq</label>
+            <input type="text" class="form-control" name="seq"
+                   th:value="${dto.seq}" readonly>
+        </div>
+
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="form-control" name="title"
+                   th:value="${dto.title}" readonly>
+        </div>
+
+        <div class="form-group">
+            <label>Content</label>
+            <textarea class="form-control" rows="5" name="content"
+                      >[[${dto.content}]]</textarea>
+
+        </div>
+
+        <div class="form-group">
+            <label>Writer</label>
+            <input type="text" class="form-control" name="writer"
+                   th:value="${dto.writer_id}" readonly>
+        </div>
+
+
+
+        <div class="form-group">
+            <label>RegDate</label>
+            <input type="text" class="form-control"
+                   th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+        </div>
+
+        <button type="submit" class="btn btn-primary"> Modify</button>
+
+        <a th:href="@{/board/list(page = ${requestDTO.page}, type=${requestDTO.type},
+            keyword = ${requestDTO.keyword})}">
+            <button type="button" class="btn btn-info">List</button>
+        </a>
+        </form>
+
+
+
+    </th:block>
+
+
+</th:block>

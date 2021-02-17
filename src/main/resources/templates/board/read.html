@@ -9,7 +9,7 @@
 
         <div class="form-group">
             <label>Seq</label>
-            <input type="text" class="form-control" name="gno"
+            <input type="text" class="form-control" name="seq"
                    th:value="${dto.seq}" readonly>
         </div>
 
@@ -28,7 +28,7 @@
 
         <div class="form-group">
             <label>Writer</label>
-            <input type="text" class="form-control" name="writer"
+            <input type="text" class="form-control" name="writer_id"
                    th:value="${dto.writer_id}" readonly>
         </div>
 
@@ -50,10 +50,33 @@
 
         <a th:href="@{/board/list(page = ${requestDTO.page}, type=${requestDTO.type},
                 keyword = ${requestDTO.keyword})}">
-            <button type="button" class="btn btn-info"> List</button>
+            <button type="button" class="btn btn-info">List</button>
+        </a>
+
+        <a th:href="@{/board/delete(seq = ${dto.seq}, page = ${requestDTO.page}, type=${requestDTO.type},
+                keyword = ${requestDTO.keyword})}">
+            <button type="button" class="btn btn-danger" name="removeBtn">Remove</button>
         </a>
 
     </th:block>
 
+    <script>
+
+<!--    var actionForm = $("form");-->
+
+<!--    $(".removeBtn").click(function () {-->
+
+<!--    console.log("진입")-->
+<!--    if (!confirm("삭제하시겠습니까?")) {-->
+<!--    return;-->
+<!--    }-->
+
+<!--    actionForm.attr("action", "/board/test").attr("method", "post");-->
+<!--    // actionForm.attr("action", "/board/modify").attr("method", "post"); 지우기 주석-->
+<!--    actionForm.submit();-->
+
+<!--    });-->
+
+    </script>
 
 </th:block>

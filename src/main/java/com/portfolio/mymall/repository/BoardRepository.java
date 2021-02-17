@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface BoardRepository {
     //basic
     Board save(Board board);
-    Boolean deleteBySeq(Long seq);
+    Long deleteBySeq(Long seq);
     List<Object[]> findBySeq(Long seq);
     List<Board> findAll();
 

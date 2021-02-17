@@ -32,9 +32,10 @@ public class BoardController {
         model.addAttribute("result", boardService.getList(pageRequestDTO));
     }
 
-    @GetMapping("/read")
+    @GetMapping({"/read","/modify"})
     public void read(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Long seq, Model model)
     {
+
         System.out.println("=====read======");
         model.addAttribute("dto", boardService.read(seq));
     }
@@ -51,7 +52,28 @@ public class BoardController {
         Long seq = boardService.register(boardDTO);
 
         return "redirect:/board/list";
+    }
 
+
+    @PostMapping("/modify")
+    public String modify(PageRequestDTO pageRequestDTO, BoardDTO boardDTO)
+    {
+        Long seq = boardService.modify(boardDTO);
+
+        System.out.println("_____________________수정 완료 : " + seq);
+
+
+        return "redirect:/board/list";
+    }
+
+    @GetMapping("/delete")
+    public String delete(Long seq, RedirectAttributes redirectAttributes){
+
+        boardService.delete(seq);
+
+        redirectAttributes.addFlashAttribute("seq", seq);
+
+        return "redirect:/board/list";
     }
 
 }

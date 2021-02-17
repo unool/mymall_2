@@ -15,6 +15,7 @@ public interface BoardService {
     public boolean delete(Long seq);
     public PageResultDTO<BoardDTO, Object[]> getList(PageRequestDTO pageRequestDTO);
     public BoardDTO read(Long seq);
+    public Long modify(BoardDTO boardDTO);
 
 
     default Board dtoToEntity(BoardDTO boardDTO)

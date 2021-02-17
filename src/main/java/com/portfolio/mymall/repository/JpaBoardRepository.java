@@ -21,14 +21,16 @@ public class JpaBoardRepository implements BoardRepository{
     public Board save(Board board) {
         System.out.println("======" + board+"=====");
         entityManager.persist(board);
+        System.out.println("======" + board+"=====");
         return board;
     }
 
     @Override
-    public Boolean deleteBySeq(Long seq) {
-//        Optional<Board> board = findBySeq(seq);
-//        entityManager.remove(board);
-        return null;
+    public Long deleteBySeq(Long seq) {
+        Board board = entityManager.find(Board.class, seq);
+        entityManager.remove(board);  // 트랜젝션 커밋시 반영됨.
+
+        return seq;
     }
 
     @Override
