@@ -19,6 +19,8 @@ target/
 *.iml
 *.ipr
 
+application-oauth.properties
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/

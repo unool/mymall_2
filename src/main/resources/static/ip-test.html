@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://jsgetip.appspot.com"></script>
+
+
+</head>
+
+<body>
+
+<span id="cty">where</span>
+
+
+
+
+<script >
+
+    var myIP = ip();
+    var ipInfoIoTokenKey = "461fdd1bc9b116";
+    var openWeatherTokenKey = "d6998cc186500bf65d79547635e94ea6";
+
+    var url = "http://ipinfo.io/"+ myIP + "?token="+ipInfoIoTokenKey;
+    var weather;
+
+    $.getJSON(url, function(locateDataFromIP) {
+
+        console.log(locateDataFromIP);
+
+
+
+        url = "http://api.openweathermap.org/data/2.5/weather?q="+locateDataFromIP.city+"&appid="+openWeatherTokenKey
+        +"&lang=kr";
+        console.log(url);
+        $.getJSON(url, function(weatherDataFromCity) {
+
+            console.log(weatherDataFromCity.weather[0].description);
+            weather = 111;
+            // weather = weatherDataFromCity.weather[0].description;
+            // console.log(weatherDataFromCity.weather[0].description);
+        });
+    });
+
+    console.log(weather);
+
+</script>
+</body>
+
+</html>

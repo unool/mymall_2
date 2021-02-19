@@ -1,10 +1,7 @@
 package com.portfolio.mymall.config;
 
 
-import com.portfolio.mymall.repository.BoardRepository;
-import com.portfolio.mymall.repository.JpaBoardRepository;
-import com.portfolio.mymall.repository.JpaMemberRepository;
-import com.portfolio.mymall.repository.MemberRepository;
+import com.portfolio.mymall.repository.*;
 import com.portfolio.mymall.service.BoardService;
 import com.portfolio.mymall.service.BoardServiceImpl;
 import com.portfolio.mymall.service.MemberService;
@@ -57,5 +54,6 @@ public class SpringConfig {
         return new JpaBoardRepository(entityManager);
     }
 
-
+    @Bean
+    public UserRepository userRepository(){return new UserRepository(entityManager);}
 }
