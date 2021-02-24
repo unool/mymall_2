@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>sign up</title>
+</head>
+<body>
+<h1>Sign Up</h1> <hr>
+
+<form th:action="@{/member/join}" method="POST">
+    id : <input type="text" name="id"> <br>
+    password : <input type="password" name="password"> <br>
+    nick : <input type="text" name="nick"> <br>
+    base : <input type="text" name="base"> <br>
+    detail : <input type="text" name="detail"> <br>
+    phone : <input type="text" name="phone"> <br>
+    <input type="radio" name="auth" value="ROLE_ADMIN,ROLE_USER"> admin
+    <input type="radio" name="auth" value="ROLE_USER" checked="checked"> user <br>
+    <button type="submit">Join</button>
+</form> <br>
+
+<a href="/login">Go to login →</a>
+</body>
+</html>

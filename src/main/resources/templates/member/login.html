@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Login Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <link rel="stylesheet" th:href="@{/colorlib-regform-17/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css}">
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" th:href="@{/colorlib-regform-17/css/style.css}">
+</head>
+
+<body>
+
+<div class="wrapper">
+    <div class="inner">
+        <div class="image-holder">
+            <img th:src="@{/colorlib-regform-17/images/registration-form-1.jpg}" alt="">
+        </div>
+        <!--				<form th:action="@{/member/join}" method="POST">-->
+        <form th:action="@{/member/login}" method="POST">
+            <h3>Login Form</h3>
+
+            <div class="form-group">
+                <input type="text" placeholder="ID" class="form-control" name="username">
+            </div>
+            <div class="form-wrapper">
+                <input type="password" placeholder="Password" class="form-control" name="password">
+                <i class="zmdi zmdi-lock"></i>
+            </div>
+
+            <button type="submit">Login
+                <i class="zmdi zmdi-arrow-right"></i>
+            </button>
+
+            <a th:href="@{/member/signup}">
+                <h0>Join Us</h0>
+            </a>
+
+        </form>
+    </div>
+</div>
+
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

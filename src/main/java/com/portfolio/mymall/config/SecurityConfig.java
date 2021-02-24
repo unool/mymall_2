@@ -2,6 +2,7 @@ package com.portfolio.mymall.config;
 
 import com.portfolio.mymall.domain.Role;
 import com.portfolio.mymall.service.CustomOAuth2UserService;
+import com.portfolio.mymall.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final MemberService memberService;
     private final CustomOAuth2UserService customOAuth2UserService;
     private final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
     
@@ -30,17 +32,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/Savory-gh-pages/**").permitAll()
-                //.anyRequest().authenticated()
+                .antMatchers("/", "/Savory-gh-pages/**","/member/**","/colorlib-regform-17/**")
+                .permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
-//                .loginPage("/login")
+                .loginPage("/member/login")
                 .defaultSuccessUrl("/")
                 .and()
-                .logout().logoutSuccessUrl("/")
+                .logout()
+                .logoutSuccessUrl("/member/login")
                 .and()
                 .oauth2Login().userInfoEndpoint().userService(customOAuth2UserService);
-        
     }
 
     @Autowired
@@ -51,5 +54,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("user")
                 .password("{noop}1111")
                 .roles(Role.USER.name());
+    }
+
+    public void configure(AuthenticationManagerBuilder auth) throws Exception { // 9
+        auth.userDetailsService(memberService)
+                // 해당 서비스(userService)에서는 UserDetailsService를 implements해서
+                // loadUserByUsername() 구현해야함 (서비스 참고)
+                .passwordEncoder(new BCryptPasswordEncoder());
     }
 }

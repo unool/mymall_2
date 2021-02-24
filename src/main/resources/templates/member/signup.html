@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>Register Page</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<!-- MATERIAL DESIGN ICONIC FONT -->
+		<link rel="stylesheet" th:href="@{/colorlib-regform-17/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css}">
+
+		<!-- STYLE CSS -->
+		<link rel="stylesheet" th:href="@{/colorlib-regform-17/css/style.css}">
+	</head>
+
+	<body>
+
+		<div class="wrapper">
+			<div class="inner">
+				<div class="image-holder">
+					<img th:src="@{/colorlib-regform-17/images/registration-form-1.jpg}" alt="">
+				</div>
+<!--				<form th:action="@{/member/join}" method="POST">-->
+				<form th:action="@{/member/join}" method="POST">
+					<h3>Registration Form</h3>
+					<div class="form-group">
+						<input type="text" placeholder="ID" class="form-control" name="id">
+					</div>
+					<div class="form-wrapper">
+						<input type="password" placeholder="Password" class="form-control" name="password">
+						<i class="zmdi zmdi-lock"></i>
+					</div>
+					<div class="form-wrapper">
+						<input type="password" placeholder="Confirm Password" class="form-control">
+						<i class="zmdi zmdi-lock"></i>
+					</div>
+					<div class="form-wrapper">
+						<input type="text" placeholder="Nickname" class="form-control" name="nick">
+						<i class="zmdi zmdi-account"></i>
+					</div>
+					<div class="form-wrapper">
+						<input type="text" placeholder="base" class="form-control" name="base">
+						<input type="text" placeholder="detail" class="form-control" name="detail">
+<!--						<i class="zmdi zmdi-email"></i>-->
+					</div>
+
+					<div class="form-wrapper">
+						<input type="text" placeholder="phone" class="form-control" name="phone">
+					</div>
+
+
+					<input type="hidden" th:name="auth" th:value="ROLE_USER" />
+
+
+<!--					<div class="form-wrapper">-->
+<!--						<select name="" id="" class="form-control">-->
+<!--							<option value="" disabled selected>Gender</option>-->
+<!--							<option value="male">Male</option>-->
+<!--							<option value="femal">Female</option>-->
+<!--							<option value="other">Other</option>-->
+<!--						</select>-->
+<!--						<i class="zmdi zmdi-caret-down" style="font-size: 17px"></i>-->
+<!--					</div>-->
+
+					<button type="submit">Register
+						<i class="zmdi zmdi-arrow-right"></i>
+					</button>
+				</form>
+			</div>
+		</div>
+		
+	</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <th:block th:fragment="setContent(content)">
 <head>
@@ -56,6 +56,14 @@
                 <p>My Portfolio site</p>
             </div>
             <ul class="nav">
+
+
+                <a sec:authorize="isAnonymous()" class="loginBtn" >Login</a>
+                <a sec:authorize="isAuthenticated()" th:href="@{/logout}"><h0>Logout</h0></a>
+
+
+
+
                 <li><a th:href="@{/}" title="">Home</a></li>
                 <li><a th:href="@{/board/list}" title="">Board</a></li>
 
@@ -68,15 +76,17 @@
 
                 </span>
                 <p class="nav-footer-social-buttons">
-                    <a class="fa-icon" th:href="@{/}" title="">
-                        <i class="fa fa-instagram"></i>
-                    </a>
-                    <a class="fa-icon" th:href="@{/}" title="">
-                        <i class="fa fa-dribbble"></i>
-                    </a>
-                    <a class="fa-icon" th:href="@{/}" title="">
-                        <i class="fa fa-twitter"></i>
-                    </a>
+<!--                    <a class="fa-icon" th:href="@{/}" title="">-->
+<!--                        <i class="fa fa-instagram"></i>-->
+<!--                    </a>-->
+
+
+<!--                    <a class="fa-icon" th:href="@{/}" title="">-->
+<!--                        <i class="fa fa-dribbble"></i>-->
+<!--                    </a>-->
+<!--                    <a class="fa-icon" th:href="@{/}" title="">-->
+<!--                        <i class="fa fa-twitter"></i>-->
+<!--                    </a>-->
                 </p>
                 <p>© Untitled | Website created with <a th:href="@{/}" title="Create website with free html template">Mashup Template</a>/<a th:href="@{/}" title="Beautiful Free Images">Unsplash</a></p>
             </nav>
@@ -96,6 +106,20 @@
   document.addEventListener("DOMContentLoaded", function (event) {
      masonryBuild();
   });
+
+
+
+  $(".loginBtn").click(function () {
+
+      openPopUp('/member/login', "팝업");
+
+  })
+
+  function openPopUp(url, name){
+      var options = 'width=850, height=600, top=30, left=30, resizable=no, scrollbars=no, location=no';
+      window.open(url, name, options);
+  }
+
 </script>
 
 

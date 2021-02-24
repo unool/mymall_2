@@ -40,7 +40,11 @@ public class JpaMemberRepository implements MemberRepository {
 
     @Override
     public Optional<Member> findById(String id) {
-        return Optional.empty();
+        List<Member> result = em.createQuery("select m from Member m where m.id = :id")
+                .setParameter("id", id)
+                .getResultList();
+
+        return result.stream().findAny();
     }
 
     @Override
