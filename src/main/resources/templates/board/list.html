@@ -16,7 +16,7 @@
       <div class="col-xs-12 col-md-4 section-container-spacer">
         <a th:href="@{/board/read(seq= ${dto.seq})}"><h2>[[${dto.seq}]]</h2></a>
         <h0>[[${dto.title}]]  <a th:href="@{/}">([[${dto.replyCount}]])</a></h0>
-        <p>Date : [[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]] | Writer : [[${dto.nick}]]</p>
+        <p>Date : [[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]] | Writer : [[${dto.writer_id}]]</p>
 
 
       </div>

@@ -1,11 +1,14 @@
 package com.portfolio.mymall.controller;
 
+import com.portfolio.mymall.domain.Member;
 import com.portfolio.mymall.dto.BoardDTO;
 import com.portfolio.mymall.dto.PageRequestDTO;
 import com.portfolio.mymall.service.BoardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,20 +33,53 @@ public class BoardController {
     @GetMapping("/list")
     public void list(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Model model) {
         model.addAttribute("result", boardService.getList(pageRequestDTO));
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
     }
 
     @GetMapping({"/read","/modify"})
     public void read(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Long seq, Model model)
     {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = null;
+        String reqMemberName = authentication.getName();
 
-        System.out.println("=====read======");
+        if(reqMemberName.equals("anonymousUser")) //로그인 안 한 경우
+        {
+            member = Member.builder().build();
+        }
+        else
+        {
+            member = (Member) authentication.getPrincipal();
+        }
+
+
         model.addAttribute("dto", boardService.read(seq));
+        model.addAttribute("reqMember", member);
     }
 
-    @GetMapping("/register")
-    public void register()
-    {
 
+
+    @GetMapping("/register")
+    public void register(Model model)
+    {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Member member = null;
+        try {
+            member = (Member) authentication.getPrincipal();
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            //예외처리 필요
+        }
+        finally {
+            String id = member == null ? "empty" : member.getId();
+        }
+
+        model.addAttribute("member", member);
     }
 
     @PostMapping("/register")
@@ -60,9 +96,6 @@ public class BoardController {
     {
         Long seq = boardService.modify(boardDTO);
 
-        System.out.println("_____________________수정 완료 : " + seq);
-
-
         return "redirect:/board/list";
     }
 
@@ -75,5 +108,6 @@ public class BoardController {
 
         return "redirect:/board/list";
     }
+
 
 }

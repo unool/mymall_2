@@ -2,9 +2,11 @@ package com.portfolio.mymall.service;
 
 import com.portfolio.mymall.domain.Board;
 import com.portfolio.mymall.domain.Member;
+import com.portfolio.mymall.domain.Reply;
 import com.portfolio.mymall.dto.BoardDTO;
 import com.portfolio.mymall.dto.PageRequestDTO;
 import com.portfolio.mymall.dto.PageResultDTO;
+import com.portfolio.mymall.dto.ReplyDTO;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,6 +46,24 @@ public interface BoardService {
                 .build();
 
         return boardDTO;
+    }
+
+
+
+
+
+    default ReplyDTO replyEntityToDTO(Reply reply){
+
+        ReplyDTO replyDTO = ReplyDTO.builder()
+                .seq(reply.getSeq())
+                .board_seq(reply.getBoard_seq())
+                .content(reply.getContent())
+                .replyer(reply.getReplyer())
+                .modDate(reply.getModDate())
+                .regDate(reply.getRegDate())
+                .build();
+
+        return replyDTO;
     }
 
 

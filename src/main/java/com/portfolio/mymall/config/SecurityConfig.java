@@ -32,7 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/Savory-gh-pages/**","/member/**","/colorlib-regform-17/**")
+                .antMatchers("/", "/Savory-gh-pages/**","/member/**","/colorlib-regform-17/**",
+                        "/board/list","/board/read")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -46,15 +47,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .oauth2Login().userInfoEndpoint().userService(customOAuth2UserService);
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        logger.info("build Auth global.......");
-
-        auth.inMemoryAuthentication()
-                .withUser("user")
-                .password("{noop}1111")
-                .roles(Role.USER.name());
-    }
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        logger.info("build Auth global.......");
+//
+//        auth.inMemoryAuthentication()
+//                .withUser("user")
+//                .password("{noop}1111")
+//                .roles(Role.USER.name());
+//    }
 
     public void configure(AuthenticationManagerBuilder auth) throws Exception { // 9
         auth.userDetailsService(memberService)

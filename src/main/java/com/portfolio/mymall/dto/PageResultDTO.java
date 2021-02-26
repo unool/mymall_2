@@ -44,7 +44,6 @@ public class PageResultDTO<DTO, EN> {
 
         dtoList = result.stream().map(fn).collect(Collectors.toList()); //Page<Entity> 형태의 DB 데이터를 DTO 리스트로 변환 (서비스에서 데이터 핸들링 하기위해)
 
-
     }
 
     public void InitPageResultDTO(int totalPage, int currentPage, int size){

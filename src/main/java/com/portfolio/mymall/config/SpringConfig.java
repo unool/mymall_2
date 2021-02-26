@@ -2,16 +2,10 @@ package com.portfolio.mymall.config;
 
 
 import com.portfolio.mymall.repository.*;
-import com.portfolio.mymall.service.BoardService;
-import com.portfolio.mymall.service.BoardServiceImpl;
-import com.portfolio.mymall.service.MemberService;
-import org.slf4j.Logger;
-import org.slf4j.Marker;
+import com.portfolio.mymall.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
@@ -37,7 +31,13 @@ public class SpringConfig {
     @Bean
     public BoardService boardService()
     {
-        return new BoardServiceImpl(boardRepository());
+        return new BoardServiceImpl(boardRepository(), replyRepository());
+    }
+
+    @Bean
+    public ReplyService replyService()
+    {
+        return new ReplyServiceImpl(replyRepository());
     }
 
 
@@ -56,4 +56,9 @@ public class SpringConfig {
 
     @Bean
     public UserRepository userRepository(){return new UserRepository(entityManager);}
+
+    @Bean
+    public ReplyRepository replyRepository(){return new JpaReplyRepository(entityManager);}
+
+
 }

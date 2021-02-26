@@ -2,10 +2,13 @@ package com.portfolio.mymall.service;
 
 import com.portfolio.mymall.domain.Board;
 import com.portfolio.mymall.domain.Member;
+import com.portfolio.mymall.domain.Reply;
 import com.portfolio.mymall.dto.BoardDTO;
 import com.portfolio.mymall.dto.PageRequestDTO;
 import com.portfolio.mymall.dto.PageResultDTO;
+import com.portfolio.mymall.dto.ReplyDTO;
 import com.portfolio.mymall.repository.BoardRepository;
+import com.portfolio.mymall.repository.ReplyRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -13,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -22,11 +26,13 @@ public class BoardServiceImpl implements BoardService {
 
     Logger logger = LoggerFactory.getLogger(BoardServiceImpl.class);
     private final BoardRepository boardRepository;
+    private final ReplyRepository replyRepository;
 
 
-    public BoardServiceImpl(BoardRepository boardRepository)
+    public BoardServiceImpl(BoardRepository boardRepository, ReplyRepository replyRepository)
     {
         this.boardRepository = boardRepository;
+        this.replyRepository = replyRepository;
     }
 
     @Override
@@ -64,6 +70,7 @@ public class BoardServiceImpl implements BoardService {
             firstBoardIndex = Long.valueOf(pageRequestDTO.getSize()) * Long.valueOf(pageRequestDTO.getPage()-1);
             List<Object[]> list = boardRepository.getBoardWithMemberReplyAll(firstBoardIndex.intValue(), pageRequestDTO.getSize());
 
+
             Function<Object[], BoardDTO> fn = (en ->
                     entityToDTO((Board)en[0],(Member)en[1], (Long)en[2]));
 
@@ -78,14 +85,31 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public BoardDTO read(Long seq) {
-        List<Object[]> result = boardRepository.findBySeq(seq);
-        if(result.isEmpty())
+        List<Object[]> boardResult = boardRepository.findBySeq(seq); //보드와 멤버 리플라이 갯수 구하기
+        if(boardResult.isEmpty())
         {
            //예외 처리
         }
-        Object[] objects = result.get(0);
-        BoardDTO boardDTO = entityToDTO((Board)objects[0],(Member) objects[1], (Long) objects[2]);
 
+        List<Object> replyResult = replyRepository.findByBoardSeq(seq);
+        List<ReplyDTO> replyDTOList = new ArrayList<>();
+
+        if(!replyResult.isEmpty())
+        {
+            int aa = replyResult.size();
+            
+            for(Object obj : replyResult)
+            {
+                //비효율적이므로 추후 수정 필요
+                ReplyDTO replyDTO = replyEntityToDTO((Reply)obj);
+                replyDTOList.add(replyDTO);
+            }
+        }
+
+        Object[] objects = boardResult.get(0);
+        BoardDTO boardDTO = entityToDTO((Board)objects[0],(Member) objects[1], (Long) objects[2]);
+        boardDTO.SetReplys(replyDTOList);
+        
         return boardDTO;
     }
 

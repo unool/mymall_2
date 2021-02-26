@@ -3,6 +3,7 @@ package com.portfolio.mymall.dto;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,5 +26,14 @@ public class BoardDTO {
     private LocalDateTime modDate;
 
     private int replyCount;
+
+    private List<ReplyDTO> replys;
+
+
+    public void SetReplys(List<ReplyDTO> replys)
+    {
+        this.replys = replys;
+    }
+
 
 }

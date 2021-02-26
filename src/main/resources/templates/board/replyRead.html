@@ -6,11 +6,7 @@
 
     <th:block th:fragment="content">
 
-        <h1 class="mt-4"> Board Read Page </h1>
-
-        <input type="hidden" name="board_seq" th:value="${dto.seq}">
-        <input type="hidden" name="replyer" th:value="${reqMember.id}">
-
+        <h1 class="mt-4"> Reply Modify Page </h1>
 
         <div class="form-group">
             <label>Seq</label>
@@ -62,13 +58,11 @@
             <button type="button" class="btn btn-danger" name="removeBtn" th:if="${dto.writer_id} == ${reqMember.id}">Remove</button>
         </a>
 
-        <br><br>
+        <h1 class="mt-4"> --- 댓글 --- </h1>
+
+
         <table class="table table-striped">
             <tbody>
-
-            <tr><td><p align="center"> <b>댓글</b></p></td>
-
-            </tr>
             <tr th:each="reply : ${dto.replys}">
                 <td width="90%">
                     <span style="font-weight:bold">[[${reply.replyer}]]</span></br>
@@ -77,56 +71,24 @@
 
                 </td>
                 <td width="5%">
-                    <span><a th:href="@{#}" th:if="${reply.replyer} == ${reqMember.id}" >modify</a></span></br></br>
-                    <span><a th:href="@{/reply/delete(seq = ${reply.seq})}" th:if="${reply.replyer} == ${reqMember.id}" >delete</a></span>
+                    <span><a th:href="@{/board/}">modify</a></span></br></br>
+                    <span><a th:href="@{#}">delete</a></span>
+
                 </td>
             </tr>
-
-<!--            <tr sec:authorize="isAuthenticated()">-->
-<!--                <td>-->
-<!--                    <span style="font-weight:bold">[[${reqMember.id}]]</span>-->
-<!--                    <textarea class="form-control replyContent" rows="3" name="replyContent" placeholder="댓글을 입력하세요"></textarea>-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                    <br>-->
-<!--                    <button class="replRegBtn">Register</button>-->
-<!--                </td>-->
-<!--            </tr>-->
 
             </tbody>
         </table>
 
-        <form class="replyForm" sec:authorize="isAuthenticated()">
-            <div>
-                <span style="font-weight:bold">[[${reqMember.id}]]</span>
-                <textarea class="form-control" rows="3" name="content" placeholder="댓글을 입력하세요"></textarea>
-            </div>
-            <div>
-                <br>
-                <button class="replRegBtn">Register</button>
-            </div>
-        </form>
 
 
-        <script>
-            var actionForm = $(".replyForm");
 
-            $(".replRegBtn").click(function() {
-                actionForm.attr("action","/reply/register").attr("method","post");
-
-                var seq = $("input[name='board_seq']");
-                var replyer = $("input[name='replyer']");
-
-                actionForm.append(seq);
-                actionForm.append(replyer);
-
-                actionForm.submit();
-            })
-
-        </script>
 
     </th:block>
 
+    <script>
 
+
+    </script>
 
 </th:block>
