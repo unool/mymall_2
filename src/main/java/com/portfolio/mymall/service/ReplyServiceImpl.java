@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 
 @Transactional
 public class ReplyServiceImpl implements ReplyService {
@@ -25,9 +27,21 @@ public class ReplyServiceImpl implements ReplyService {
         return replyRepository.save(reply);
     }
 
+    @Override
     public Reply deleteReply(Long seq)
     {
         return replyRepository.deleteBySeq(seq);
     }
 
+    @Override
+    public List<Object> findReply(Long boardSeq) {
+
+        return replyRepository.findByBoardSeq(boardSeq);
+    }
+
+    @Override
+    public Reply modifyReply(ReplyDTO replyDTO) {
+
+        return replyRepository.modifyBySeq(replyDTO.getContent(), replyDTO.getSeq());
+    }
 }

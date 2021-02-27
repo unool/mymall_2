@@ -33,4 +33,11 @@ public class JpaReplyRepository implements ReplyRepository{
         entityManager.remove(reply);
         return reply;
     }
+
+    @Override
+    public Reply modifyBySeq(String content, Long replySeq) {
+        Reply reply = entityManager.find(Reply.class, replySeq);
+        reply.setContent(content);
+        return reply;
+    }
 }

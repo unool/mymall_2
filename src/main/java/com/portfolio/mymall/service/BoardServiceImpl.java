@@ -94,6 +94,8 @@ public class BoardServiceImpl implements BoardService {
         List<Object> replyResult = replyRepository.findByBoardSeq(seq);
         List<ReplyDTO> replyDTOList = new ArrayList<>();
 
+
+        //사실상 필요가 없는 부분 (댓글은 ajax로 처리하므로)
         if(!replyResult.isEmpty())
         {
             int aa = replyResult.size();
@@ -106,10 +108,11 @@ public class BoardServiceImpl implements BoardService {
             }
         }
 
+
         Object[] objects = boardResult.get(0);
         BoardDTO boardDTO = entityToDTO((Board)objects[0],(Member) objects[1], (Long) objects[2]);
         boardDTO.SetReplys(replyDTOList);
-        
+        //----
         return boardDTO;
     }
 
